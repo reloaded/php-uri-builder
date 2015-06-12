@@ -1,0 +1,21 @@
+{
+  "name": "reloaded/php-uri-builder",
+  "description": "A URI manipulation library inspired by Android's Uri.Builder.",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Jason Harris",
+      "email": "1337reloaded@gmail.com"
+    }
+  ],
+  "type": "library",
+  "homepage": "http://harrisj.net",
+  "keywords": [
+    "php",
+    "uri",
+    "manipulation",
+    "builder"
+  ],
+  "license": "GPL-3.0"
+}
