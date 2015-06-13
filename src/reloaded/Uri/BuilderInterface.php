@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * @author jharris <jharris@kochava.com>
+ * @author Reloaded <1337reloaded@gmail.com>
  * @since 6/12/15 12:15 PM
  * @version 1.0.0
  */
