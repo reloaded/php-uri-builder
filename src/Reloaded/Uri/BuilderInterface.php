@@ -51,6 +51,22 @@ namespace Reloaded\Uri
         public function getScheme();
 
         /**
+         * Sets the authority of the URI.
+         *
+         * @link https://tools.ietf.org/html/rfc3986#section-3.2
+         * @param string $authority
+         * @return $this
+         */
+        public function setAuthority($authority);
+
+        /**
+         * Returns the authority of the URI.
+         *
+         * @return string
+         */
+        public function getAuthority();
+
+        /**
          * Sets the fragment of the URI.
          *
          * @return string
