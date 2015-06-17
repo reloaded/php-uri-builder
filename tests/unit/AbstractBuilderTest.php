@@ -2,8 +2,14 @@
 
 class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * \Reloaded\Uri\AbstractBuilder stub instance
+     */
+    private $stub;
+
     protected function setUp()
     {
+        $this->stub = $this->getMockForAbstractClass('\Reloaded\Uri\AbstractBuilder');
     }
 
     protected function tearDown()
@@ -16,23 +22,28 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testScheme()
     {
-        $stub = $this->getMockForAbstractClass('\Reloaded\Uri\AbstractBuilder');
+        $this->stub->setScheme("http");
+        $this->assertEquals("http", $this->stub->getScheme());
 
-        $stub->setScheme("http");
-        $this->assertEquals("http", $stub->getScheme());
+        $this->stub->setScheme("HTTP-2.0");
+        $this->assertEquals("http-2.0", $this->stub->getScheme());
 
-        $stub->setScheme("z39.50r");
-        $this->assertEquals("z39.50r", $stub->getScheme());
+        $this->stub->setScheme("z39.50r");
+        $this->assertEquals("z39.50r", $this->stub->getScheme());
 
         try
         {
-            $stub->setScheme("1http");
+            $this->stub->setScheme("1http");
             $this->fail("Expected InvalidArugmentException to be thrown.");
         }
         catch(\Exception $e)
         {
             $this->assertInstanceOf("InvalidArgumentException", $e);
         }
+    }
+
+    public function testAuthority()
+    {
     }
 
 }
