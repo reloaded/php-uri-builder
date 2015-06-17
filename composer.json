@@ -16,6 +16,11 @@
     "manipulation",
     "builder"
   ],
+  "autoload": {
+    "psr-4": {
+      "Reloaded\\Uri\\": "src/Reloaded/Uri"
+    }
+  },
   "license": "GPL-3.0",
   "require": {
     "php": "^5.4"
