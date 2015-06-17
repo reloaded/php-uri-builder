@@ -3,7 +3,7 @@
 class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * \Reloaded\Uri\AbstractBuilder stub instance
+     * @var \Reloaded\Uri\AbstractBuilder|\PHPUnit_Framework_MockObject_MockObject
      */
     private $stub;
 
