@@ -25,6 +25,7 @@ namespace Reloaded\Uri
          *
          * @link https://tools.ietf.org/html/rfc3986#section-3.1
          * @param string $scheme
+         * @throws \InvalidArgumentException
          * @return $this
          */
         public function setScheme($scheme)
