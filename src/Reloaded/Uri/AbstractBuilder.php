@@ -57,6 +57,18 @@ namespace Reloaded\Uri
         }
 
         /**
+         * Sets the authority of the URI.
+         *
+         * @link https://tools.ietf.org/html/rfc3986#section-3.2
+         * @param string $authority
+         * @return $this
+         */
+        public function setAuthority($authority)
+        {
+            // TODO: Implement setAuthority() method.
+        }
+
+        /**
          * Sets the host of the URI.
          *
          * @link https://tools.ietf.org/html/rfc3986#section-3.2.2
