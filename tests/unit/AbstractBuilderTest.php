@@ -130,28 +130,55 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         {
             $this->assertInstanceOf('\Reloaded\Uri\UserInformationException', $e);
         }
-
-        /*
-         * Test port
-         */
-        $this->stub->setAuthority("harrisj.net:8000");
-        $this->assertEquals("harrisj.net:8000", $this->stub->getAuthority());
-
-        $this->stub->setAuthority("127.1:8000");
-        $this->assertEquals("127.1:8000", $this->stub->getAuthority());
-
-        $this->stub->setAuthority("[::1]:8000");
-        $this->assertEquals("[::1]:8000", $this->stub->getAuthority());
-
-        try
-        {
-            $this->stub->setAuthority("harrisj.net:75000");
-            $this->assertEquals("harrisj.net:75000", $this->stub->getAuthority());
-        }
-        catch(\Exception $e)
-        {
-            $this->assertInstanceOf('\LengthException', $e);
-        }
     }
 
+    /**
+     * @throws \Reloaded\Uri\InvalidPortException
+     * @expectedException \Reloaded\Uri\InvalidPortException
+     */
+    public function testPort()
+    {
+        $this->stub->setPort("8080");
+        $this->assertEquals(8080, $this->stub->getPort());
+
+        $this->stub->setPort("75000");
+    }
+
+    /**
+     * Check to see if authorities with registered host names can be parsed.
+     */
+    public function testRegisteredNameAuthority()
+    {
+        $this->stub->setAuthority("reloaded@harrisj.net:8000");
+        $this->assertEquals("harrisj.net", $this->stub->getHost());
+        $this->assertEquals("8000", $this->stub->getPort());
+    }
+
+    /**
+     * Check to see if IPv4 authorities can be parsed.
+     *
+     * @todo Check parsed user information
+     */
+    public function testIpv4Authority()
+    {
+        $this->stub->setAuthority("reloaded@127.0.0.1:8000");
+        $this->assertEquals("8000", $this->stub->getPort());
+        $this->assertEquals("127.0.0.1", $this->stub->getHost());
+    }
+
+    /**
+     * Check to see if IPv6 authorities can be parsed.
+     *
+     * @todo Check parsed user information
+     */
+    public function testIpv6Authority()
+    {
+        $this->stub->setAuthority("reloaded@[::1]:8000");
+        $this->assertEquals("8000", $this->stub->getPort());
+        $this->assertEquals("[::1]", $this->stub->getHost());
+
+        $this->stub->setAuthority("[2001:0db8:0000:0000:0000:ff00:0042:8329]:9000");
+        $this->assertEquals("9000", $this->stub->getPort());
+        $this->assertEquals("[2001:0db8:0000:0000:0000:ff00:0042:8329]", $this->stub->getHost());
+    }
 }
