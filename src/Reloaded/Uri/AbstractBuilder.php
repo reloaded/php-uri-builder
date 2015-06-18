@@ -20,6 +20,11 @@ namespace Reloaded\Uri
          */
         private $host;
 
+        /**
+         * @var int
+         */
+        private $port;
+
 
         /**
          * Sets the scheme of the URI.
@@ -94,6 +99,46 @@ namespace Reloaded\Uri
             $regNameMatch = '(?:(?:[a-zA-Z]{1}[a-zA-Z0-9-]{0,61}[a-zA-Z0-9]{0,1}\.?)+)';
 
             return preg_match("/^({$ipv6Match}|{$ipv4Match}|{$regNameMatch})$/", $host) > 0;
+        }
+
+        /**
+         * Sets the URI port.
+         *
+         * @param int $port
+         * @return $this
+         * @throws InvalidPortException
+         */
+        public function setPort($port)
+        {
+            if(!$this->isPortValid($port))
+            {
+                throw new InvalidPortException("URI port must be a valid port between 1 and 65535.");
+            }
+
+            $this->port = (int) $port;
+
+            return $this;
+        }
+
+        /**
+         * Returns the port of the URI.
+         *
+         * @return int
+         */
+        public function getPort()
+        {
+            return $this->port;
+        }
+
+        /**
+         * Returns a boolean indicating if the port is valid.
+         *
+         * @param int $port
+         * @return bool
+         */
+        protected function isPortValid($port)
+        {
+            return is_numeric($port) && (int) $port >= 1 && (int) $port <= 65535;
         }
 
     }
