@@ -16,6 +16,12 @@ namespace Reloaded\Uri
         private $scheme;
 
         /**
+         * @var string
+         */
+        private $host;
+
+
+        /**
          * Sets the scheme of the URI.
          *
          * @link https://tools.ietf.org/html/rfc3986#section-3.1
@@ -45,6 +51,50 @@ namespace Reloaded\Uri
             return $this->scheme;
         }
 
+        /**
+         * Sets the host of the URI.
+         *
+         * @link https://tools.ietf.org/html/rfc3986#section-3.2.2
+         * @param string $host
+         * @return $this
+         * @throws InvalidHostException
+         */
+        public function setHost($host)
+        {
+            if(!$this->isHostValid($host))
+            {
+                throw new InvalidHostException("URI host format must be in IPv4, IPv6 or registered name.");
+            }
+
+            $this->host = $host;
+
+            return $this;
+        }
+
+        /**
+         * Returns the host of the URI.
+         *
+         * @return string
+         */
+        public function getHost()
+        {
+            return $this->host;
+        }
+
+        /**
+         * Returns a boolean indicating if the host value is a valid IPv4 or IPv6 or registered name.
+         *
+         * @param string $host
+         * @return bool
+         */
+        protected function isHostValid($host)
+        {
+            $ipv6Match = '(?:\[[^\]]+\])';
+            $ipv4Match = '(?:(?:[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))';
+            $regNameMatch = '(?:(?:[a-zA-Z]{1}[a-zA-Z0-9-]{0,61}[a-zA-Z0-9]{0,1}\.?)+)';
+
+            return preg_match("/^({$ipv6Match}|{$ipv4Match}|{$regNameMatch})$/", $host) > 0;
+        }
 
     }
 }
