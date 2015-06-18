@@ -44,6 +44,8 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests authority setting/validation and getting.
+     *
+     * @link http://regexr.com/3b7up
      */
     public function testAuthority()
     {
@@ -55,24 +57,62 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         $this->stub->setAuthority("harrisj.net");
         $this->assertEquals("harrisj.net", $this->stub->getAuthority());
 
+        try
+        {
+            $this->stub->setAuthority("2015harrisj.net");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
+        }
+
+        $this->stub->setAuthority("harrisj.net.co.uk");
+        $this->assertEquals("harrisj.net.co.uk", $this->stub->getAuthority());
+
         // IPv6 literals
         $this->stub->setAuthority("[::1]");
         $this->assertEquals("[::1]", $this->stub->getAuthority());
 
-        // Any '0' components of dotted notation can be omitted
-        $this->stub->setAuthority("127.0.1");
-        $this->assertEquals("127.0.1", $this->stub->getAuthority());
+        $this->stub->setAuthority("[2001:0db8:0000:0000:0000:ff00:0042:8329]");
+        $this->assertEquals("[2001:0db8:0000:0000:0000:ff00:0042:8329]", $this->stub->getAuthority());
 
-        $this->stub->setAuthority("127.1");
-        $this->assertEquals("127.1", $this->stub->getAuthority());
+        $this->stub->setAuthority("[2001:db8::ff00:42:8329]");
+        $this->assertEquals("[2001:db8::ff00:42:8329]", $this->stub->getAuthority());
 
-        // Decimal
-        $this->stub->setAuthority("2130706433");
-        $this->assertEquals("2130706433", $this->stub->getAuthority());
+        // IPv4 literals
+        $this->stub->setAuthority("127.0.0.1");
+        $this->assertEquals("127.0.0.1", $this->stub->getAuthority());
 
-        // Octal
-        $this->stub->setAuthority("017700000001");
-        $this->assertEquals("017700000001", $this->stub->getAuthority());
+        // Don't allow any '0' components to be omitted
+        try
+        {
+            $this->stub->setAuthority("127.0.1");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
+        }
+
+        // Don't allow decimal
+        try
+        {
+            $this->stub->setAuthority("2130706433");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
+        }
+
+        // Don't allow octal
+        try
+        {
+            $this->stub->setAuthority("017700000001");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
+        }
+
 
 
         /*
