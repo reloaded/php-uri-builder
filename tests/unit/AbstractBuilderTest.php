@@ -42,8 +42,20 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * Tests authority setting/validation and getting.
+     */
     public function testAuthority()
     {
+        $this->stub->setAuthority("harrisj.net");
+        $this->assertEquals("harrisj.net", $this->stub->getAuthority());
+
+        $this->stub->setAuthority("harrisj.net:8000");
+        $this->assertEquals("harrisj.net:8000", $this->stub->getAuthority());
+
+        $this->stub->setAuthority("reloaded@harrisj.net");
+        $this->assertEquals("reloaded@harrisj.net", $this->stub->getAuthority());
+
     }
 
 }
