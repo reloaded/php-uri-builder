@@ -16,11 +16,6 @@ namespace Reloaded\Uri
         private $scheme;
 
         /**
-         * @var string|null
-         */
-        private $authority;
-
-        /**
          * Sets the scheme of the URI.
          *
          * @link https://tools.ietf.org/html/rfc3986#section-3.1
