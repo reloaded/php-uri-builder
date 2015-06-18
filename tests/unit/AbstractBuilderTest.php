@@ -34,11 +34,11 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         try
         {
             $this->stub->setScheme("1http");
-            $this->fail("Expected InvalidArugmentException to be thrown.");
+            $this->fail("Expected an exception.");
         }
         catch(\Exception $e)
         {
-            $this->assertInstanceOf("InvalidArgumentException", $e);
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidSchemeException', $e);
         }
     }
 

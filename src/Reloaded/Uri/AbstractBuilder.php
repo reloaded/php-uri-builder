@@ -25,14 +25,14 @@ namespace Reloaded\Uri
          *
          * @link https://tools.ietf.org/html/rfc3986#section-3.1
          * @param string $scheme
-         * @throws \InvalidArgumentException
          * @return $this
+         * @throws InvalidSchemeException
          */
         public function setScheme($scheme)
         {
             if(!preg_match('/^[a-z]{1}[a-z0-9\+\-\.]*$/i', $scheme))
             {
-                throw new \InvalidArgumentException("Invalid URI scheme provided: {$scheme}");
+                throw new InvalidSchemeException("Invalid URI scheme provided: {$scheme}");
             }
 
             $this->scheme = strtolower($scheme);
