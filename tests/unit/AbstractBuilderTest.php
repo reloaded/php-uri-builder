@@ -47,15 +47,71 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testAuthority()
     {
+        /*
+         * Test host
+         */
+
+        // Registered name
         $this->stub->setAuthority("harrisj.net");
         $this->assertEquals("harrisj.net", $this->stub->getAuthority());
 
-        $this->stub->setAuthority("harrisj.net:8000");
-        $this->assertEquals("harrisj.net:8000", $this->stub->getAuthority());
+        // IPv6 literals
+        $this->stub->setAuthority("[::1]");
+        $this->assertEquals("[::1]", $this->stub->getAuthority());
 
+        // Any '0' components of dotted notation can be omitted
+        $this->stub->setAuthority("127.0.1");
+        $this->assertEquals("127.0.1", $this->stub->getAuthority());
+
+        $this->stub->setAuthority("127.1");
+        $this->assertEquals("127.1", $this->stub->getAuthority());
+
+        // Decimal
+        $this->stub->setAuthority("2130706433");
+        $this->assertEquals("2130706433", $this->stub->getAuthority());
+
+        // Octal
+        $this->stub->setAuthority("017700000001");
+        $this->assertEquals("017700000001", $this->stub->getAuthority());
+
+
+        /*
+         * Test user information
+         */
         $this->stub->setAuthority("reloaded@harrisj.net");
         $this->assertEquals("reloaded@harrisj.net", $this->stub->getAuthority());
 
+        // Specifying password in clear text is deprecated so don't support bad security habits.
+        try
+        {
+            $this->stub->setAuthority("reloaded:mypassword%24%23%5E%25%24@harrisj.net");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\UserInformationException', $e);
+        }
+
+        /*
+         * Test port
+         */
+        $this->stub->setAuthority("harrisj.net:8000");
+        $this->assertEquals("harrisj.net:8000", $this->stub->getAuthority());
+
+        $this->stub->setAuthority("127.1:8000");
+        $this->assertEquals("127.1:8000", $this->stub->getAuthority());
+
+        $this->stub->setAuthority("[::1]:8000");
+        $this->assertEquals("[::1]:8000", $this->stub->getAuthority());
+
+        try
+        {
+            $this->stub->setAuthority("harrisj.net:75000");
+            $this->assertEquals("harrisj.net:75000", $this->stub->getAuthority());
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\LengthException', $e);
+        }
     }
 
 }
