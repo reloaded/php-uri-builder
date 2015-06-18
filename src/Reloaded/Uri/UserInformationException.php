@@ -15,7 +15,7 @@ namespace Reloaded\Uri;
  * Class UserInformationException
  * @package Reloaded\Uri
  */
-class UserInformationException extends \InvalidArgumentException
+class UserInformationException extends \Exception
 {
 
 }
