@@ -67,6 +67,54 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Checks to see if the host can be set and is validated.
+     */
+    public function testHost()
+    {
+        $this->stub->setHost("harrisj.net");
+        $this->assertEquals("harrisj.net", $this->stub->getHost());
+
+        try
+        {
+            $this->stub->setHost("2015harrisj.net");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
+        }
+
+        // Don't allow any '0' components to be omitted
+        try
+        {
+            $this->stub->setHost("127.0.1");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
+        }
+
+        // Don't allow decimal
+        try
+        {
+            $this->stub->setHost("2130706433");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
+        }
+
+        // Don't allow octal
+        try
+        {
+            $this->stub->setHost("017700000001");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
+        }
+    }
+
+    /**
      * @throws \Reloaded\Uri\InvalidPortException
      * @expectedException \Reloaded\Uri\InvalidPortException
      */
@@ -89,15 +137,6 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->stub->setAuthority("portfolio.harrisj.co.uk");
         $this->assertEquals("portfolio.harrisj.co.uk", $this->stub->getHost());
-
-        try
-        {
-            $this->stub->setAuthority("2015harrisj.net");
-        }
-        catch(\Exception $e)
-        {
-            $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
-        }
     }
 
     /**
@@ -110,36 +149,6 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         $this->stub->setAuthority("reloaded@127.0.0.1:8000");
         $this->assertEquals("8000", $this->stub->getPort());
         $this->assertEquals("127.0.0.1", $this->stub->getHost());
-
-        // Don't allow any '0' components to be omitted
-        try
-        {
-            $this->stub->setAuthority("127.0.1");
-        }
-        catch(\Exception $e)
-        {
-            $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
-        }
-
-        // Don't allow decimal
-        try
-        {
-            $this->stub->setAuthority("2130706433");
-        }
-        catch(\Exception $e)
-        {
-            $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
-        }
-
-        // Don't allow octal
-        try
-        {
-            $this->stub->setAuthority("017700000001");
-        }
-        catch(\Exception $e)
-        {
-            $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
-        }
     }
 
     /**
