@@ -152,6 +152,9 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         $this->stub->setAuthority("reloaded@harrisj.net:8000");
         $this->assertEquals("harrisj.net", $this->stub->getHost());
         $this->assertEquals("8000", $this->stub->getPort());
+
+        $this->stub->setAuthority("portfolio.harrisj.co.uk");
+        $this->assertEquals("portfolio.harrisj.co.uk", $this->stub->getHost());
     }
 
     /**
