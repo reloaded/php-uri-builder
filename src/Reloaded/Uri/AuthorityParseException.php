@@ -15,7 +15,7 @@ namespace Reloaded\Uri;
  * Class AuthorityParseException
  * @package Reloaded\Uri
  */
-class AuthorityParseException 
+class AuthorityParseException extends \Exception
 {
 
 }
