@@ -125,5 +125,21 @@ namespace Reloaded\Uri
          * @return string|null
          */
         public function getUserInfo();
+
+        /**
+         * Sets the host of the URI.
+         *
+         * @link https://tools.ietf.org/html/rfc3986#section-3.2.2
+         * @param string $host
+         * @return $this
+         */
+        public function setHost($host);
+
+        /**
+         * Returns the host of the URI.
+         *
+         * @return string
+         */
+        public function getHost();
     }
 }
