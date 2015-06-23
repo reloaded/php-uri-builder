@@ -62,14 +62,63 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         }
         catch(\Exception $e)
         {
-            $this->assertInstanceOf('\Reloaded\Uri\UserInformationException', $e);
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidUserInfoException', $e);
         }
+
+        /*
+         * Registered name host
+         */
+        $this->stub->setAuthority("reloaded@harrisj.net:8000");
+        $this->assertEquals("reloaded@harrisj.net:8000", $this->stub->getAuthority());
+        $this->assertEquals("harrisj.net", $this->stub->getHost());
+        $this->assertEquals("8000", $this->stub->getPort());
+        $this->assertEquals("reloaded", $this->stub->getUserInfo());
+
+        $this->stub->setAuthority("portfolio.harrisj.co.uk");
+        $this->assertNull($this->stub->getUserInfo());
+        $this->assertEquals("portfolio.harrisj.co.uk", $this->stub->getHost());
+        $this->assertEquals(0, $this->stub->getPort());
+
+        /*
+         * IPv4 host
+         */
+        $this->stub->setAuthority("reloaded@127.0.0.1:8000");
+        $this->assertEquals("8000", $this->stub->getPort());
+        $this->assertEquals("127.0.0.1", $this->stub->getHost());
+
+
+        /*
+         * IPv6 host
+         */
+
+        $this->stub->setAuthority("reloaded@[::1]:8000");
+        $this->assertEquals("8000", $this->stub->getPort());
+        $this->assertEquals("[::1]", $this->stub->getHost());
+
+        $this->stub->setAuthority("[2001:0db8:0000:0000:0000:ff00:0042:8329]:9000");
+        $this->assertEquals("9000", $this->stub->getPort());
+        $this->assertEquals("[2001:0db8:0000:0000:0000:ff00:0042:8329]", $this->stub->getHost());
+
+        $this->stub->setAuthority("[2001:db8::ff00:42:8329]");
+        $this->assertEquals("[2001:db8::ff00:42:8329]", $this->stub->getHost());
     }
 
     /**
-     * Checks to see if the host can be set and is validated.
+     * @throws \Reloaded\Uri\InvalidPortException
+     * @expectedException \Reloaded\Uri\InvalidPortException
      */
-    public function testHost()
+    public function testPort()
+    {
+        $this->stub->setPort("8080");
+        $this->assertEquals(8080, $this->stub->getPort());
+
+        $this->stub->setPort("75000");
+    }
+
+    /**
+     * Check to see if set host accepts valid registered names.
+     */
+    public function testRegisteredNameHost()
     {
         $this->stub->setHost("harrisj.net");
         $this->assertEquals("harrisj.net", $this->stub->getHost());
@@ -82,6 +131,17 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         {
             $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
         }
+    }
+
+    /**
+     * Check to see if set host accepts IPv4 as long as it has four octets.
+     *
+     * @link http://blogs.msdn.com/b/ieinternals/archive/2014/03/06/browser-arcana-ipv4-ipv6-literal-urls-dotted-va-dotless.aspx
+     */
+    public function testIpv4Host()
+    {
+        $this->stub->setHost("127.0.0.1");
+        $this->assertEquals("127.0.0.1", $this->stub->getHost());
 
         // Don't allow any '0' components to be omitted
         try
@@ -115,58 +175,16 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @throws \Reloaded\Uri\InvalidPortException
-     * @expectedException \Reloaded\Uri\InvalidPortException
-     */
-    public function testPort()
-    {
-        $this->stub->setPort("8080");
-        $this->assertEquals(8080, $this->stub->getPort());
-
-        $this->stub->setPort("75000");
-    }
-
-    /**
-     * Check to see if authorities with registered host names can be parsed.
-     */
-    public function testRegisteredNameAuthority()
-    {
-        $this->stub->setAuthority("reloaded@harrisj.net:8000");
-        $this->assertEquals("harrisj.net", $this->stub->getHost());
-        $this->assertEquals("8000", $this->stub->getPort());
-
-        $this->stub->setAuthority("portfolio.harrisj.co.uk");
-        $this->assertEquals("portfolio.harrisj.co.uk", $this->stub->getHost());
-    }
-
-    /**
-     * Check to see if IPv4 authorities can be parsed.
+     * Check to see if set host accepts IPv6.
      *
-     * @todo Check parsed user information
+     * @link http://blogs.msdn.com/b/ieinternals/archive/2014/03/06/browser-arcana-ipv4-ipv6-literal-urls-dotted-va-dotless.aspx
      */
-    public function testIpv4Authority()
+    public function testIpv6Host()
     {
-        $this->stub->setAuthority("reloaded@127.0.0.1:8000");
-        $this->assertEquals("8000", $this->stub->getPort());
-        $this->assertEquals("127.0.0.1", $this->stub->getHost());
-    }
-
-    /**
-     * Check to see if IPv6 authorities can be parsed.
-     *
-     * @todo Check parsed user information
-     */
-    public function testIpv6Authority()
-    {
-        $this->stub->setAuthority("reloaded@[::1]:8000");
-        $this->assertEquals("8000", $this->stub->getPort());
+        $this->stub->setHost("[::1]");
         $this->assertEquals("[::1]", $this->stub->getHost());
 
-        $this->stub->setAuthority("[2001:0db8:0000:0000:0000:ff00:0042:8329]:9000");
-        $this->assertEquals("9000", $this->stub->getPort());
+        $this->stub->setHost("[2001:0db8:0000:0000:0000:ff00:0042:8329]");
         $this->assertEquals("[2001:0db8:0000:0000:0000:ff00:0042:8329]", $this->stub->getHost());
-
-        $this->stub->setAuthority("[2001:db8::ff00:42:8329]");
-        $this->assertEquals("[2001:db8::ff00:42:8329]", $this->stub->getHost());
     }
 }
