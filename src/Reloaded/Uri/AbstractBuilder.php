@@ -180,7 +180,7 @@ namespace Reloaded\Uri
          * Sets the URI port.
          *
          * @link https://tools.ietf.org/html/rfc3986#section-3.2.3
-         * @param int $port
+         * @param int|null $port
          * @return $this
          * @throws InvalidPortException
          */
@@ -213,7 +213,7 @@ namespace Reloaded\Uri
          */
         public function hasPort()
         {
-            return (int) $this->port > 0;
+            return $this->port && (int) $this->port > 0;
         }
 
         /**
