@@ -95,5 +95,21 @@ namespace Reloaded\Uri
          * @return \string[]
          */
         public function getPath();
+
+        /**
+         * Sets the URI port.
+         *
+         * @link https://tools.ietf.org/html/rfc3986#section-3.2.3
+         * @param int|null $port
+         * @return $this
+         */
+        public function setPort($port);
+
+        /**
+         * Returns the port of the URI.
+         *
+         * @return int|null
+         */
+        public function getPort();
     }
 }
