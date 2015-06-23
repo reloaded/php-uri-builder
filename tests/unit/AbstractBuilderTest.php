@@ -211,4 +211,28 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->stub->hasHost());
     }
+
+    /**
+     * Check to see if URI user information can be set.
+     *
+     * @throws \Reloaded\Uri\InvalidUserInfoException
+     */
+    public function testSetUserInfo()
+    {
+        $this->stub->setUserInfo("reloaded");
+
+        $this->assertEquals("reloaded", $this->stub->getUserInfo());
+    }
+
+    /**
+     * @throws \Reloaded\Uri\InvalidUserInfoException
+     */
+    public function testHasUserInfo()
+    {
+        $this->assertFalse($this->stub->hasUserInfo());
+
+        $this->stub->setUserInfo("reloaded");
+
+        $this->assertTrue($this->stub->hasUserInfo());
+    }
 }
