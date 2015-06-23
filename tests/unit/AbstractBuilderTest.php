@@ -116,6 +116,18 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @throws \Reloaded\Uri\InvalidPortException
+     */
+    public function testHasPort()
+    {
+        $this->assertFalse($this->stub->hasPort());
+
+        $this->stub->setPort(80);
+
+        $this->assertTrue($this->stub->hasPort());
+    }
+
+    /**
      * Check to see if set host accepts valid registered names.
      */
     public function testRegisteredNameHost()
