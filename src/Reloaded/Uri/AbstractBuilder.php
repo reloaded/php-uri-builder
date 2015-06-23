@@ -30,6 +30,11 @@ namespace Reloaded\Uri
          */
         private $userInfo;
 
+        /**
+         * @var \string[]
+         */
+        private $path;
+
 
         /**
          * Sets the scheme of the URI.
@@ -321,6 +326,76 @@ namespace Reloaded\Uri
         protected function getPortRegex()
         {
             return '(?::(\d{1,5}))';
+        }
+
+        /**
+         * @return \string[]
+         */
+        public function getPath()
+        {
+            return $this->path;
+        }
+
+        /**
+         * Encodes each segment in $path and sets the path of the URI.
+         *
+         * @link https://tools.ietf.org/html/rfc3986#section-3.3
+         * @param \string[] $path
+         * @return $this
+         */
+        public function setPath(array $path)
+        {
+            $this->path = array_map("urlencode", $path);
+
+            return $this;
+        }
+
+        /**
+         * Returns a boolean indicating if a path has been specified.
+         *
+         * @return bool
+         */
+        public function hasPath()
+        {
+            return count($this->path) > 0;
+        }
+
+        /**
+         * Encodes and appends a segment to the path.
+         *
+         * @param string $path
+         */
+        public function appendPath($path)
+        {
+            $this->path[] = urlencode($path);
+        }
+
+        /**
+         * Encodes the segment and removes it from the path.
+         *
+         * @param string $path
+         * @return $this
+         */
+        public function removePath($path)
+        {
+            $path = urlencode($path);
+
+            $i = array_filter($this->path, function($p) use ($path) {
+                return $p !== $path;
+            });
+
+            $this->path = array_values($i);
+        }
+
+        /**
+         * Encodes the segment and returns a boolean indicating if it is present in the path.
+         *
+         * @param string $path
+         * @return bool
+         */
+        public function pathExists($path)
+        {
+            return in_array(urlencode($path), $this->path);
         }
     }
 }

@@ -235,4 +235,78 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->stub->hasUserInfo());
     }
+
+    /**
+     * Check to see if set path accepts an array of path elements and encodes reserved characters.
+     */
+    public function testSetPath()
+    {
+        $this->stub->setPath([
+            "web%development",
+            "php",
+            "angular-js"
+        ]);
+
+        $this->assertEquals(["web%25development", "php", "angular-js"], $this->stub->getPath());
+    }
+
+    public function testHasPath()
+    {
+        $this->assertFalse($this->stub->hasPath());
+
+        $this->stub->setPath([
+            "web%development",
+            "php",
+            "angular-js"
+        ]);
+
+        $this->assertTrue($this->stub->hasPath());
+    }
+
+    /**
+     * Check to see if elements can be appended to the path array without affecting existing elements.
+     */
+    public function testAppendPath()
+    {
+        $this->stub->setPath([
+            "web%development",
+            "php"
+        ]);
+
+        $this->stub->appendPath("angular-js");
+
+        $this->assertEquals(["web%25development", "php", "angular-js"], $this->stub->getPath());
+    }
+
+    /**
+     * Check to see if elements can be removed from the path array.
+     */
+    public function testRemovePath()
+    {
+        $this->stub->setPath([
+            "web%development",
+            "php",
+            "angular-js"
+        ]);
+
+        $this->stub->removePath("angular-js");
+
+        $this->assertEquals(["web%25development", "php"], $this->stub->getPath());
+    }
+
+    /**
+     * Check to see if individual URI path elements can be checked for presence.
+     */
+    public function testPathExists()
+    {
+        $this->stub->setPath([
+            "web%development",
+            "php",
+            "angular-js"
+        ]);
+
+        $this->assertTrue($this->stub->pathExists("php"));
+
+        $this->assertTrue($this->stub->pathExists("angular-js"));
+    }
 }

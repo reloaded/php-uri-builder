@@ -80,6 +80,20 @@ namespace Reloaded\Uri
          */
         public function getFragment();
 
+        /**
+         * Sets the path of the URI.
+         *
+         * @link https://tools.ietf.org/html/rfc3986#section-3.3
+         * @param \string[] $path
+         * @return $this
+         */
+        public function setPath(array $path);
 
+        /**
+         * Returns the path of the URI.
+         *
+         * @return \string[]
+         */
+        public function getPath();
     }
 }
