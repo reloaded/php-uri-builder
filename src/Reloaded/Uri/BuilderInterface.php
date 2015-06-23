@@ -111,5 +111,19 @@ namespace Reloaded\Uri
          * @return int|null
          */
         public function getPort();
+
+        /**
+         * Sets the URI user information.
+         *
+         * @link https://tools.ietf.org/html/rfc3986#section-3.2.1
+         * @param string|null $userInfo
+         * @return $this
+         */
+        public function setUserInfo($userInfo);
+
+        /**
+         * @return string|null
+         */
+        public function getUserInfo();
     }
 }
