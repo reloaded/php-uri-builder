@@ -199,4 +199,16 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         $this->stub->setHost("[2001:0db8:0000:0000:0000:ff00:0042:8329]");
         $this->assertEquals("[2001:0db8:0000:0000:0000:ff00:0042:8329]", $this->stub->getHost());
     }
+
+    /**
+     * @throws \Reloaded\Uri\InvalidHostException
+     */
+    public function testHasHost()
+    {
+        $this->assertFalse($this->stub->hasHost());
+
+        $this->stub->setHost("localhost");
+
+        $this->assertTrue($this->stub->hasHost());
+    }
 }
