@@ -179,6 +179,7 @@ namespace Reloaded\Uri
         /**
          * Sets the URI port.
          *
+         * @link https://tools.ietf.org/html/rfc3986#section-3.2.3
          * @param int $port
          * @return $this
          * @throws InvalidPortException
@@ -226,6 +227,7 @@ namespace Reloaded\Uri
         /**
          * Sets the URI user information.
          *
+         * @link https://tools.ietf.org/html/rfc3986#section-3.2.1
          * @param string|null $userInfo
          * @return $this
          * @throws InvalidUserInfoException
