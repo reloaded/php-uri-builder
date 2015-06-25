@@ -345,7 +345,7 @@ namespace Reloaded\Uri
          */
         public function setPath(array $path)
         {
-            $this->path = array_map("urlencode", $path);
+            $this->path = array_map("rawurlencode", $path);
 
             return $this;
         }
@@ -367,7 +367,7 @@ namespace Reloaded\Uri
          */
         public function appendPath($path)
         {
-            $this->path[] = urlencode($path);
+            $this->path[] = rawurlencode($path);
         }
 
         /**
@@ -378,7 +378,7 @@ namespace Reloaded\Uri
          */
         public function removePath($path)
         {
-            $path = urlencode($path);
+            $path = rawurlencode($path);
 
             $i = array_filter($this->path, function($p) use ($path) {
                 return $p !== $path;
@@ -395,7 +395,7 @@ namespace Reloaded\Uri
          */
         public function pathExists($path)
         {
-            return in_array(urlencode($path), $this->path);
+            return in_array(rawurlencode($path), $this->path);
         }
     }
 }
