@@ -321,7 +321,7 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
             "key3" => ""
         ]);
 
-        $this->assertEquals(["key1" => "val1", "key2" => "val/val2", "key3" => ""], $this->stub->getQuery());
+        $this->assertEquals(["key1" => "val1", "key2" => "val%2Fval2", "key3" => ""], $this->stub->getQuery());
     }
 
     public function testHasQuery()
@@ -348,7 +348,7 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->stub->appendQuery("key2", "val/val2");
 
-        $this->assertEquals(["key1" => "val1", "key2" => "val/val2"], $this->stub->getQuery());
+        $this->assertEquals(["key1" => "val1", "key2" => "val%2Fval2"], $this->stub->getQuery());
     }
 
     /**
@@ -364,7 +364,7 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->stub->removeQuery("key1");
 
-        $this->assertEquals(["key2" => "val/val2", "key3" => ""], $this->stub->getQuery());
+        $this->assertEquals(["key2" => "val%2Fval2", "key3" => ""], $this->stub->getQuery());
     }
 
     /**
