@@ -141,5 +141,21 @@ namespace Reloaded\Uri
          * @return string
          */
         public function getHost();
+
+        /**
+         * Set the URI query parameters.
+         *
+         * @link https://tools.ietf.org/html/rfc3986#section-3.4
+         * @param string[] $query
+         * @return $this
+         */
+        public function setQuery(array $query);
+
+        /**
+         * Get the URI query parameters.
+         *
+         * @return string[]
+         */
+        public function getQuery();
     }
 }
