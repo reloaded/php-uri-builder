@@ -35,6 +35,11 @@ namespace Reloaded\Uri
          */
         private $path;
 
+        /**
+         * @var string[]
+         */
+        private $query;
+
 
         /**
          * Sets the scheme of the URI.
@@ -396,6 +401,95 @@ namespace Reloaded\Uri
         public function pathExists($path)
         {
             return in_array(rawurlencode($path), $this->path);
+        }
+
+        /**
+         * Set the URI query parameters.
+         *
+         * @link https://tools.ietf.org/html/rfc3986#section-3.4
+         * @param string[] $query
+         * @return $this
+         */
+        public function setQuery(array $query)
+        {
+            $this->query = [];
+
+            foreach ($query as $key => $value)
+            {
+                $this->appendQuery($key, $value);
+            }
+
+            return $this;
+        }
+
+        /**
+         * Get the URI query parameters.
+         *
+         * @return string[]
+         */
+        public function getQuery()
+        {
+            return $this->query;
+        }
+
+        /**
+         * Returns a boolean indicating if a query has been specified.
+         *
+         * @return bool
+         */
+        public function hasQuery()
+        {
+            return count($this->query) > 0;
+        }
+
+        /**
+         * @param string $key
+         * @param string $value
+         * @return $this
+         * @throws InvalidQueryException
+         */
+        public function appendQuery($key, $value)
+        {
+            if(!is_string($key) || trim($key) === "")
+            {
+                throw new InvalidQueryException("URI query key needs to be a string and at least one character long.");
+            }
+
+            if(!is_string($value) && $value !== null)
+            {
+                throw new InvalidQueryException("URI query value needs to be a string or null.");
+            }
+
+            $this->query[trim($key)] = rawurlencode($value);
+
+            return $this;
+        }
+
+        /**
+         * Checks to see if a query parameters exists with the given key.
+         *
+         * @param string $key
+         * @return bool
+         */
+        public function queryExists($key)
+        {
+            return isset($this->query[$key]);
+        }
+
+        /**
+         * Removes a query parameter with the given key.
+         *
+         * @param string $key
+         * @return $this
+         */
+        public function removeQuery($key)
+        {
+            if($this->queryExists($key))
+            {
+                unset($this->query[$key]);
+            }
+
+            return $this;
         }
     }
 }
