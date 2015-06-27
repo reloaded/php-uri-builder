@@ -350,7 +350,12 @@ namespace Reloaded\Uri
          */
         public function setPath(array $path)
         {
-            $this->path = array_map("rawurlencode", $path);
+            $this->path = [];
+
+            foreach ($path as $value)
+            {
+                $this->appendPath($value);
+            }
 
             return $this;
         }
