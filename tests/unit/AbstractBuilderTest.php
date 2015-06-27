@@ -309,4 +309,76 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->stub->pathExists("angular-js"));
     }
+
+    /**
+     * Check to see if URI query can be set.
+     */
+    public function testSetQuery()
+    {
+        $this->stub->setQuery([
+            "key1" => "val1",
+            "key2" => "val/val2",
+            "key3" => ""
+        ]);
+
+        $this->assertEquals(["key1" => "val1", "key2" => "val/val2", "key3" => ""], $this->stub->getQuery());
+    }
+
+    public function testHasQuery()
+    {
+        $this->assertFalse($this->stub->hasQuery());
+
+        $this->stub->setQuery([
+            "key1" => "val1"
+        ]);
+
+        $this->assertTrue($this->stub->hasQuery());
+    }
+
+    /**
+     * Check to see if elements can be appended to the URI query.
+     */
+    public function testAppendQuery()
+    {
+        $this->stub->setQuery([
+            "key1" => "val1"
+        ]);
+
+        $this->assertEquals(["key1" => "val1"], $this->stub->getQuery());
+
+        $this->stub->appendQuery("key2", "val/val2");
+
+        $this->assertEquals(["key1" => "val1", "key2" => "val/val2"], $this->stub->getQuery());
+    }
+
+    /**
+     * Check to see if URI query parameters can be removed.
+     */
+    public function testRemoveQuery()
+    {
+        $this->stub->setQuery([
+            "key1" => "val1",
+            "key2" => "val/val2",
+            "key3" => ""
+        ]);
+
+        $this->stub->removeQuery("key1");
+
+        $this->assertEquals(["key2" => "val/val2", "key3" => ""], $this->stub->getQuery());
+    }
+
+    /**
+     * Check to see if URI query elements can be checked for presence.
+     */
+    public function testQueryExists()
+    {
+        $this->assertFalse($this->stub->queryExists("key2"));
+
+        $this->stub->setQuery([
+            "key1" => "val1",
+            "key2" => "val/val2"
+        ]);
+
+        $this->assertTrue($this->stub->queryExists("key2"));
+    }
 }
