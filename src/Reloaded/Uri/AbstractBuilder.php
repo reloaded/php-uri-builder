@@ -457,14 +457,9 @@ namespace Reloaded\Uri
          */
         public function appendQuery($key, $value)
         {
-            if(!is_string($key) || trim($key) === "")
+            if(!is_string($key))
             {
-                throw new InvalidQueryException("URI query key needs to be a string and at least one character long.");
-            }
-
-            if(!is_string($value) && $value !== null)
-            {
-                throw new InvalidQueryException("URI query value needs to be a string or null.");
+                throw new InvalidQueryException("URI query key needs to be a string.");
             }
 
             $this->query[trim($key)] = rawurlencode($value);
