@@ -87,13 +87,24 @@ namespace Reloaded\Uri
         }
 
         /**
-         * Returns an array of characters that do not need get percent-encoded when building the path component.
-         * These characters are used
+         * Returns an array of characters that do not need be percent-encoded when building the path component.
+         *
          * @return \string[]
          */
         public function getPathComponentChars()
         {
             return $this->getUnreservedChars() + $this->getSubDelims() + [":" => "%3A", "@" => "%40"];
+        }
+
+        /**
+         * Returns an array of characters that do not need to be percent-encoded when building the query
+         * component.
+         *
+         * @return \string[]
+         */
+        public function getQueryComponentChars()
+        {
+            return $this->getPathComponentChars() + ["/" => "%2F", "?" => "%3F"];
         }
     }
 }
