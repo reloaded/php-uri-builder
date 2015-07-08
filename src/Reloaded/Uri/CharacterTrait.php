@@ -23,18 +23,18 @@ namespace Reloaded\Uri
          */
         public function getReservedChars()
         {
+            return $this->getSubDelims() + $this->getGenDelims();
+        }
+
+        /**
+         * Returns an mapping of generic syntax delimiter characters and their percent-encoded equivalent values. Keys
+         * are the raw characters and values are percent-encoded representations.
+         *
+         * @return string[]
+         */
+        protected function getGenDelims()
+        {
             return [
-                "!" => "%20",
-                "$" => "%24",
-                "&" => "%26",
-                "'" => "%27",
-                "(" => "%28",
-                ")" => "%29",
-                "*" => "%2A",
-                "+" => "%2B",
-                "," => "%2C",
-                ";" => "%3B",
-                "=" => "%3D",
                 ":" => "%3A",
                 "/" => "%2F",
                 "?" => "%3F",
@@ -46,8 +46,31 @@ namespace Reloaded\Uri
         }
 
         /**
-         * Returns an array of unreserved characters that do not need to be percent-encoded. Array keys are the raw characters
-         * and array values are the percent-encoded representation of the array key character.
+         * Returns an mapping of subcomponent delimiter characters and their percent-encoded equivalent values. Keys
+         * are the raw characters and values are percent-encoded representations.
+         *
+         * @return string[]
+         */
+        protected function getSubDelims()
+        {
+            return [
+                "!" => "%20",
+                "$" => "%24",
+                "&" => "%26",
+                "'" => "%27",
+                "(" => "%28",
+                ")" => "%29",
+                "*" => "%2A",
+                "+" => "%2B",
+                "," => "%2C",
+                ";" => "%3B",
+                "=" => "%3D"
+            ];
+        }
+
+        /**
+         * Returns an array of unreserved characters that do not need to be percent-encoded. Array keys are the
+         * raw characters and array values are the percent-encoded representation of the array key character.
          *
          * This array does not contain a list of DIGITS or ALPHA characters.
          *
@@ -61,6 +84,16 @@ namespace Reloaded\Uri
                 "_" => "%5F",
                 "~" => "%7E"
             ];
+        }
+
+        /**
+         * Returns an array of characters that do not need get percent-encoded when building the path component.
+         * These characters are used
+         * @return \string[]
+         */
+        public function getPathComponentChars()
+        {
+            return $this->getUnreservedChars() + $this->getSubDelims() + [":" => "%3A", "@" => "%40"];
         }
     }
 }
