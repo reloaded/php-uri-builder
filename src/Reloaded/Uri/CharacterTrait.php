@@ -93,7 +93,7 @@ namespace Reloaded\Uri
          */
         public function getPathComponentChars()
         {
-            return $this->getUnreservedChars() + $this->getSubDelims() + [":" => "%3A", "@" => "%40"];
+            return $this->getUnreservedChars() + [":" => "%3A", "@" => "%40"];
         }
 
         /**
