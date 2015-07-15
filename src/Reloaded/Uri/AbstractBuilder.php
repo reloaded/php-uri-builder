@@ -462,7 +462,7 @@ namespace Reloaded\Uri
                 throw new InvalidQueryException("URI query key needs to be a string.");
             }
 
-            $this->query[trim($key)] = rawurlencode($value);
+            $this->query[trim($key)] = strtr(rawurlencode($value), array_flip($this->getQueryComponentChars()));
 
             return $this;
         }
