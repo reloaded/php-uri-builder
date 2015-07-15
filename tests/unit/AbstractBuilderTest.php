@@ -341,7 +341,8 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
             "key2" => "val/val2",
             "key3" => "val%2Fval2",
             "key4" => "val?ue",
-            "key5" => ""
+            "key5" => "",
+            "key6" => "c#.net"
         ]);
 
         $this->assertEquals(
@@ -350,7 +351,8 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
                 "key2" => "val/val2",
                 "key3" => "val%252Fval2",
                 "key4" => "val?ue",
-                "key5" => ""
+                "key5" => "",
+                "key6" => "c%23.net"
             ],
             $this->stub->getQuery()
         );
