@@ -244,10 +244,25 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         $this->stub->setPath([
             "web%development",
             "php",
-            "angular-js"
+            "angular-js",
+            "c#.net",
+            "jasmine@js",
+            "test:unit",
+            "sql+server"
         ]);
 
-        $this->assertEquals(["web%25development", "php", "angular-js"], $this->stub->getPath());
+        $this->assertEquals(
+            [
+                "web%25development",
+                "php",
+                "angular-js",
+                "c%23.net",
+                "jasmine@js",
+                "test:unit",
+                "sql%2Bserver"
+            ],
+            $this->stub->getPath()
+        );
     }
 
     public function testHasPath()
@@ -255,9 +270,7 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->stub->hasPath());
 
         $this->stub->setPath([
-            "web%development",
-            "php",
-            "angular-js"
+            "web%development"
         ]);
 
         $this->assertTrue($this->stub->hasPath());
@@ -286,10 +299,15 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         $this->stub->setPath([
             "web%development",
             "php",
-            "angular-js"
+            "angular-js",
+            "c#.net"
         ]);
 
         $this->stub->removePath("angular-js");
+
+        $this->assertEquals(["web%25development", "php", "c%23.net"], $this->stub->getPath());
+
+        $this->stub->removePath("c#.net");
 
         $this->assertEquals(["web%25development", "php"], $this->stub->getPath());
     }
@@ -302,12 +320,15 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         $this->stub->setPath([
             "web%development",
             "php",
-            "angular-js"
+            "angular-js",
+            "c#.net"
         ]);
 
         $this->assertTrue($this->stub->pathExists("php"));
 
         $this->assertTrue($this->stub->pathExists("angular-js"));
+
+        $this->assertTrue($this->stub->pathExists("c#.net"));
     }
 
     /**
