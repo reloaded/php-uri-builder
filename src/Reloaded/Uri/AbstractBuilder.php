@@ -450,6 +450,8 @@ namespace Reloaded\Uri
         }
 
         /**
+         * Appends the given query key-value pair to the end of the query stack.
+         *
          * @param string $key
          * @param string $value
          * @return $this
@@ -462,7 +464,7 @@ namespace Reloaded\Uri
                 throw new InvalidQueryException("URI query key needs to be a string.");
             }
 
-            $this->query[trim($key)] = strtr(rawurlencode($value), array_flip($this->getQueryComponentChars()));
+            $this->query[$this->encodeQuery($key)] = $this->encodeQuery($value);
 
             return $this;
         }
