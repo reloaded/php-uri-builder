@@ -97,7 +97,7 @@ namespace Reloaded\Uri
         }
 
         /**
-         * Encodes the given path according to the RFC 3986 standards.
+         * Encodes the given path.
          *
          * @param string $path
          * @return string
@@ -116,6 +116,17 @@ namespace Reloaded\Uri
         public function getQueryComponentChars()
         {
             return $this->getPathComponentChars() + ["/" => "%2F", "?" => "%3F"];
+        }
+
+        /**
+         * Encodes the given query component.
+         *
+         * @param string $query
+         * @return string
+         */
+        public function encodeQuery($query)
+        {
+            return strtr(rawurlencode($query), array_flip($this->getQueryComponentChars()));
         }
     }
 }
