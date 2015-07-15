@@ -379,7 +379,7 @@ namespace Reloaded\Uri
          */
         public function appendPath($path)
         {
-            $this->path[] = rawurlencode($path);
+            $this->path[] = $this->encodePath($path);
         }
 
         /**
@@ -407,7 +407,7 @@ namespace Reloaded\Uri
          */
         public function pathExists($path)
         {
-            return in_array(rawurlencode($path), $this->path);
+            return in_array($this->encodePath($path), $this->path);
         }
 
         /**
