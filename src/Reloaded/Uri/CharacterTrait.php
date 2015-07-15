@@ -97,6 +97,17 @@ namespace Reloaded\Uri
         }
 
         /**
+         * Encodes the given path according to the RFC 3986 standards.
+         *
+         * @param string $path
+         * @return string
+         */
+        public function encodePath($path)
+        {
+            return strtr(rawurlencode($path), array_flip($this->getPathComponentChars()));
+        }
+
+        /**
          * Returns an array of characters that do not need to be percent-encoded when building the query
          * component.
          *
