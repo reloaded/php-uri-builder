@@ -477,7 +477,7 @@ namespace Reloaded\Uri
          */
         public function queryExists($key)
         {
-            return isset($this->query[$key]);
+            return isset($this->query[$this->encodeQuery($key)]);
         }
 
         /**
@@ -490,7 +490,7 @@ namespace Reloaded\Uri
         {
             if($this->queryExists($key))
             {
-                unset($this->query[$key]);
+                unset($this->query[$this->encodeQuery($key)]);
             }
 
             return $this;
