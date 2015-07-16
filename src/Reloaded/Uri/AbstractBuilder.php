@@ -555,7 +555,7 @@ namespace Reloaded\Uri
                 throw new InvalidFragmentException("URI fragment must be a string");
             }
 
-            $this->fragment = $this->getQueryComponentChars($fragment);
+            $this->fragment = $this->encodeFragment($fragment);
 
             return $this;
         }
