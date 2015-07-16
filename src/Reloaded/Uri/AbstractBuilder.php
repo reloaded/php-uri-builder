@@ -42,6 +42,11 @@ namespace Reloaded\Uri
          */
         private $query;
 
+        /**
+         * @var string
+         */
+        private $fragment;
+
 
         /**
          * Sets the scheme of the URI.
@@ -533,6 +538,46 @@ namespace Reloaded\Uri
             }
 
             return $this;
+        }
+
+        /**
+         * Sets the fragment of the URI.
+         *
+         * @link https://tools.ietf.org/html/rfc3986#section-3.5
+         * @param string $fragment
+         * @return $this
+         * @throws InvalidFragmentException
+         */
+        public function setFragment($fragment)
+        {
+            if(!is_string($fragment))
+            {
+                throw new InvalidFragmentException("URI fragment must be a string");
+            }
+
+            $this->fragment = $this->getQueryComponentChars($fragment);
+
+            return $this;
+        }
+
+        /**
+         * Returns the fragment of the URI.
+         *
+         * @return string
+         */
+        public function getFragment()
+        {
+            return $this->fragment;
+        }
+
+        /**
+         * Returns a boolean indicating if a fragment was specified.
+         *
+         * @return bool
+         */
+        public function hasFragment()
+        {
+            return $this->fragment !== null && $this->fragment !== "";
         }
     }
 }
