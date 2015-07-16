@@ -15,37 +15,37 @@ namespace Reloaded\Uri
         /**
          * @var string|null
          */
-        private $scheme;
+        private $scheme = "";
 
         /**
          * @var string
          */
-        private $host;
+        private $host = "";
 
         /**
          * @var int|null
          */
-        private $port;
-
-        /**
-         * @var string|null`
-         */
-        private $userInfo;
-
-        /**
-         * @var \string[]
-         */
-        private $path;
-
-        /**
-         * @var string[]
-         */
-        private $query;
+        private $port = null;
 
         /**
          * @var string
          */
-        private $fragment;
+        private $userInfo = "";
+
+        /**
+         * @var \string[]
+         */
+        private $path = [];
+
+        /**
+         * @var string[]
+         */
+        private $query = [];
+
+        /**
+         * @var string
+         */
+        private $fragment = "";
 
 
         /**
