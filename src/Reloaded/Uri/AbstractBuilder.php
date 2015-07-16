@@ -607,5 +607,12 @@ namespace Reloaded\Uri
         {
             return $this->fragment !== null && $this->fragment !== "";
         }
+
+        /**
+         * Builds and returns the URI.
+         *
+         * @return string
+         */
+        public abstract function build();
     }
 }
