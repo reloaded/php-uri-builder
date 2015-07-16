@@ -102,7 +102,7 @@ namespace Reloaded\Uri
          * @param string $path
          * @return string
          */
-        public function encodePath($path)
+        private function encodePath($path)
         {
             return strtr(rawurlencode($path), array_flip($this->getPathComponentChars()));
         }
@@ -124,7 +124,7 @@ namespace Reloaded\Uri
          * @param string $query
          * @return string
          */
-        public function encodeQuery($query)
+        private function encodeQuery($query)
         {
             return strtr(rawurlencode($query), array_flip($this->getQueryComponentChars()));
         }
