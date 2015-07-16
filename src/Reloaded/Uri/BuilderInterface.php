@@ -69,9 +69,11 @@ namespace Reloaded\Uri
         /**
          * Sets the fragment of the URI.
          *
-         * @return string
+         * @link https://tools.ietf.org/html/rfc3986#section-3.5
+         * @param string $fragment
+         * @return $this
          */
-        public function setFragment();
+        public function setFragment($fragment);
 
         /**
          * Returns the fragment of the URI.
