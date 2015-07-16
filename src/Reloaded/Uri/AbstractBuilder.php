@@ -376,10 +376,17 @@ namespace Reloaded\Uri
          * Encodes and appends a segment to the path.
          *
          * @param string $path
+         * @return $this
+         * @throws InvalidPathException
          */
         public function appendPath($path)
         {
-            $this->path[] = $this->encodePath($path);
+            if($this->isPathValid($path))
+            {
+                $this->path[] = $this->encodePath($path);
+            }
+
+            return $this;
         }
 
         /**
@@ -387,16 +394,22 @@ namespace Reloaded\Uri
          *
          * @param string $path
          * @return $this
+         * @throws InvalidPathException
          */
         public function removePath($path)
         {
-            $path = rawurlencode($path);
+            if($this->isPathValid($path))
+            {
+                $path = rawurlencode($path);
 
-            $i = array_filter($this->path, function($p) use ($path) {
-                return $p !== $path;
-            });
+                $i = array_filter($this->path, function($p) use ($path) {
+                    return $p !== $path;
+                });
 
-            $this->path = array_values($i);
+                $this->path = array_values($i);
+            }
+
+            return $this;
         }
 
         /**
@@ -404,10 +417,36 @@ namespace Reloaded\Uri
          *
          * @param string $path
          * @return bool
+         * @throws InvalidPathException
          */
         public function pathExists($path)
         {
-            return in_array($this->encodePath($path), $this->path);
+            if($this->isPathValid($path))
+            {
+                return in_array($this->encodePath($path), $this->path);
+            }
+
+            return false;
+        }
+
+        /**
+         * @param string $path
+         * @return bool
+         * @throws InvalidPathException
+         */
+        private function isPathValid($path)
+        {
+            if(!is_string($path))
+            {
+                throw new InvalidPathException("URI path component must be a string.");
+            }
+
+            if(!trim($path) === "")
+            {
+                throw new InvalidPathException("URI path component must not be empty.");
+            }
+
+            return true;
         }
 
         /**
