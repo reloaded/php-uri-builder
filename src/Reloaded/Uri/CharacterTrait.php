@@ -137,7 +137,7 @@ namespace Reloaded\Uri
          */
         private function encodeFragment($fragment)
         {
-            return strtr(rawurlencode($fragment), array_flip($this->getPathComponentChars()));
+            return strtr(rawurlencode($fragment), array_flip($this->getQueryComponentChars()));
         }
     }
 }
