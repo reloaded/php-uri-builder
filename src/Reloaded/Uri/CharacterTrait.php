@@ -128,5 +128,16 @@ namespace Reloaded\Uri
         {
             return strtr(rawurlencode($query), array_flip($this->getQueryComponentChars()));
         }
+
+        /**
+         * Encodes the given fragment.
+         *
+         * @param string $fragment
+         * @return string
+         */
+        private function encodeFragment($fragment)
+        {
+            return strtr(rawurlencode($fragment), array_flip($this->getPathComponentChars()));
+        }
     }
 }
