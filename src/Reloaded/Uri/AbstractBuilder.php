@@ -103,6 +103,11 @@ namespace Reloaded\Uri
          */
         public function setAuthority($authority)
         {
+            if(!is_string($authority))
+            {
+                throw new AuthorityParseException("URI authority must be a string.");
+            }
+
             $regex = "/^(?:{$this->getUserInfoRegex()}@)?{$this->getHostRegex()}{$this->getPortRegex()}?$/";
             $matches = [];
 
@@ -184,7 +189,7 @@ namespace Reloaded\Uri
          */
         public function hasHost()
         {
-            return $this->host !== null && $this->host !== "";
+            return $this->host !== "";
         }
 
         /**
@@ -192,9 +197,15 @@ namespace Reloaded\Uri
          *
          * @param string $host
          * @return bool
+         * @throws InvalidHostException
          */
         protected function isHostValid($host)
         {
+            if(!is_string($host))
+            {
+                throw new InvalidHostException("URI host must be a string.");
+            }
+
             return preg_match("/^{$this->getHostRegex()}$/", $host) > 0;
         }
 
@@ -239,7 +250,7 @@ namespace Reloaded\Uri
         }
 
         /**
-         * @return string|null
+         * @return string
          */
         public function getUserInfo()
         {
@@ -256,7 +267,7 @@ namespace Reloaded\Uri
          */
         public function setUserInfo($userInfo)
         {
-            if($userInfo && !$this->isUserInfoValid($userInfo))
+            if(!$this->isUserInfoValid($userInfo))
             {
                 throw new InvalidUserInfoException(
                     'URI user information must be in the format of ( unreserved / pct-encoded / sub-delims / ":" ).'
@@ -286,7 +297,7 @@ namespace Reloaded\Uri
          */
         public function hasUserInfo()
         {
-            return $this->userInfo !== null && $this->userInfo !== "";
+            return $this->userInfo !== "";
         }
 
         /**
@@ -294,9 +305,15 @@ namespace Reloaded\Uri
          *
          * @param string $userInfo
          * @return bool
+         * @throws InvalidUserInfoException
          */
         protected function isUserInfoValid($userInfo)
         {
+            if(!is_string($userInfo))
+            {
+                throw new InvalidUserInfoException("URI user information must be a string.");
+            }
+
             return preg_match("/^{$this->getUserInfoRegex()}$/", $userInfo) > 0;
         }
 
@@ -305,10 +322,16 @@ namespace Reloaded\Uri
          *
          * @param int $port
          * @return bool
+         * @throws InvalidPortException
          */
         protected function isPortValid($port)
         {
-            return is_numeric($port) && (int) $port >= 1 && (int) $port <= 65535;
+            if($port !== null && !is_int($port))
+            {
+                throw new InvalidPortException("URI port must be an integer or null.");
+            }
+
+            return (int) $port >= 1 && (int) $port <= 65535;
         }
 
         /**
