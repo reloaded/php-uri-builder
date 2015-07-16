@@ -3,7 +3,7 @@
 class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Reloaded\Uri\AbstractBuilder|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Reloaded\Uri\AbstractBuilder
      */
     private $stub;
 
@@ -300,14 +300,17 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
             "web%development",
             "php",
             "angular-js",
-            "c#.net"
+            "c#.net",
+            "jharris@harrisj.net"
         ]);
 
-        $this->stub->removePath("angular-js");
+        $this->stub
+            ->removePath("angular-js")
+            ->removePath("c#.net");
 
-        $this->assertEquals(["web%25development", "php", "c%23.net"], $this->stub->getPath());
+        $this->assertEquals(["web%25development", "php", "jharris@harrisj.net"], $this->stub->getPath());
 
-        $this->stub->removePath("c#.net");
+        $this->stub->removePath("jharris@harrisj.net");
 
         $this->assertEquals(["web%25development", "php"], $this->stub->getPath());
     }
