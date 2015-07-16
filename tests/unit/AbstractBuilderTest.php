@@ -440,4 +440,15 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals("label/Two%20Birds%20Nutrition", $this->stub->getFragment());
     }
+
+    public function testHasFragment()
+    {
+        $this->assertFalse($this->stub->hasFragment());
+
+        $this->stub->setFragment("category/promotions");
+        $this->assertTrue($this->stub->hasFragment());
+
+        $this->stub->setFragment("");
+        $this->assertFalse($this->stub->hasFragment());
+    }
 }
