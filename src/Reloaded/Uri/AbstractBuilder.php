@@ -58,6 +58,11 @@ namespace Reloaded\Uri
          */
         public function setScheme($scheme)
         {
+            if(!is_string($scheme))
+            {
+                throw new InvalidSchemeException("URI scheme must be a string.");
+            }
+
             if(!preg_match('/^[a-z]{1}[a-z0-9\+\-\.]*$/i', $scheme))
             {
                 throw new InvalidSchemeException("Invalid URI scheme provided: {$scheme}");
@@ -71,7 +76,7 @@ namespace Reloaded\Uri
         /**
          * Returns the scheme of the URI.
          *
-         * @return string|null
+         * @return string
          */
         public function getScheme()
         {
@@ -85,7 +90,7 @@ namespace Reloaded\Uri
          */
         public function hasScheme()
         {
-            return $this->scheme !== null && $this->scheme !== "";
+            return $this->scheme !== "";
         }
 
         /**
