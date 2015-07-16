@@ -15,7 +15,7 @@ namespace Reloaded\Uri;
  * Class InvalidPathException
  * @package Reloaded\Uri
  */
-class InvalidPathException 
+class InvalidPathException extends \Exception
 {
 
 }
