@@ -459,9 +459,9 @@ namespace Reloaded\Uri
          */
         public function appendQuery($key, $value)
         {
-            if(!is_string($key))
+            if(!is_string($key) || !is_string($value))
             {
-                throw new InvalidQueryException("URI query key needs to be a string.");
+                throw new InvalidQueryException("URI query key and value must be a string.");
             }
 
             $this->query[$this->encodeQuery($key)] = $this->encodeQuery($value);
