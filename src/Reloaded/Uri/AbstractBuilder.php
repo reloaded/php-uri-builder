@@ -121,9 +121,9 @@ namespace Reloaded\Uri
             // Why the isset checks? PHP on Windows bug.
             // https://bugs.php.net/bug.php?id=50887
             $this
-                ->setUserInfo(isset($matches[1]) && $matches[1] ? $matches[1] : null)
-                ->setHost(isset($matches[2]) && $matches[2] ? $matches[2] : null)
-                ->setPort(isset($matches[3]) && $matches[3] ? $matches[3] : null);
+                ->setUserInfo(isset($matches[1]) && $matches[1] ? $matches[1] : "")
+                ->setHost(isset($matches[2]) && $matches[2] ? $matches[2] : "")
+                ->setPort(isset($matches[3]) && $matches[3] ? (int) $matches[3] : null);
 
             return $this;
         }
@@ -267,7 +267,7 @@ namespace Reloaded\Uri
          */
         public function setUserInfo($userInfo)
         {
-            if(!$this->isUserInfoValid($userInfo))
+            if($userInfo !== "" && !$this->isUserInfoValid($userInfo))
             {
                 throw new InvalidUserInfoException(
                     'URI user information must be in the format of ( unreserved / pct-encoded / sub-delims / ":" ).'
