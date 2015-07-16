@@ -429,4 +429,15 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->stub->queryExists("key/3"));
     }
+
+    public function testSetFragment()
+    {
+        $this->stub->setFragment("category/promotions");
+
+        $this->assertEquals("category/promotions", $this->stub->getFragment());
+
+        $this->stub->setFragment("label/Two Birds Nutrition");
+
+        $this->assertEquals("label/Two%20Birds%20Nutrition", $this->stub->getFragment());
+    }
 }
