@@ -400,7 +400,7 @@ namespace Reloaded\Uri
         {
             if($this->isPathValid($path))
             {
-                $path = rawurlencode($path);
+                $path = $this->encodePath($path);
 
                 $i = array_filter($this->path, function($p) use ($path) {
                     return $p !== $path;
