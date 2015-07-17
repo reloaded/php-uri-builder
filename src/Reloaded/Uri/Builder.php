@@ -6,7 +6,41 @@
  * @version 1.0.0
  */
 
+namespace Reloaded\Uri;
+
 class Builder extends AbstractBuilder
 {
+    function __toString()
+    {
+        $uri = "";
 
+        if($this->getScheme() !== "")
+        {
+            $uri .= $this->getScheme() . "://";
+        }
+
+        if($this->getUserInfo() !== "")
+        {
+            $uri .= $this->getUserInfo() . "@";
+        }
+
+        $uri .= $this->getHost();
+
+        if($this->hasPath())
+        {
+            $uri .= join("/", $this->getPath());
+        }
+
+        if($this->hasQuery())
+        {
+            $uri .= "?" . http_build_query($this->getQuery());
+        }
+
+        if($this->hasFragment())
+        {
+            $uri .= "#" . $this->getFragment();
+        }
+
+        return $uri;
+    }
 }
