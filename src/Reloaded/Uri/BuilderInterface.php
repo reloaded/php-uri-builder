@@ -15,7 +15,7 @@ namespace Reloaded\Uri
          *
          * @return string
          */
-        public function build();
+        public function __toString();
 
         /**
          * Returns an array of reserved characters that must be replaced with percent-encoded octets.
