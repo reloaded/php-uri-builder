@@ -613,6 +613,6 @@ namespace Reloaded\Uri
          *
          * @return string
          */
-        public abstract function build();
+        public abstract function __toString();
     }
 }
