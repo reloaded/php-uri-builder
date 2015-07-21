@@ -14,10 +14,11 @@ class Builder extends AbstractBuilder
     {
         $uri = "";
 
-        if($this->getScheme() !== "")
+        if($this->getScheme() === "")
         {
-            $uri .= $this->getScheme() . "://";
+            throw new InvalidSchemeException("URI scheme is required.");
         }
+        $uri .= $this->getScheme() . "://";
 
         if($this->getUserInfo() !== "")
         {
