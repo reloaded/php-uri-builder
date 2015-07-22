@@ -46,4 +46,19 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals("http://reloaded@harrisj.net", (string) $this->stub);
     }
+
+    /**
+     * Tests toString builds URI with port if a port was specified.
+     *
+     * @throws \Reloaded\Uri\AuthorityParseException
+     * @throws \Reloaded\Uri\InvalidSchemeException
+     */
+    public function testToStringWithPort()
+    {
+        $this->stub
+            ->setScheme("https")
+            ->setAuthority("harrisj.net:443");
+
+        $this->assertEquals("https://harrisj.net:443", (string) $this->stub);
+    }
 }
