@@ -144,7 +144,7 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         $this->stub->setPort("8080");
         $this->assertEquals(8080, $this->stub->getPort());
 
-        $this->stub->setPort("75000");
+        $this->stub->setPort(75000);
     }
 
     /**
