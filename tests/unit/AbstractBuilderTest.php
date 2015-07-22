@@ -40,6 +40,25 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         {
             $this->assertInstanceOf('\Reloaded\Uri\InvalidSchemeException', $e);
         }
+
+        try
+        {
+            $this->stub->setScheme([]);
+            $this->fail("Expected an exception.");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidSchemeException', $e);
+        }
+    }
+
+    public function testHasScheme()
+    {
+        $this->assertFalse($this->stub->hasScheme());
+
+        $this->stub->setScheme("http");
+
+        $this->assertTrue($this->stub->hasScheme());
     }
 
     /**
