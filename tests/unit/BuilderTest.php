@@ -79,6 +79,13 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("http://harrisj.net/programming/c%23.net", (string) $this->stub);
     }
 
+    /**
+     * Tests toString builds URI with query string.
+     *
+     * @throws \Reloaded\Uri\AuthorityParseException
+     * @throws \Reloaded\Uri\InvalidQueryException
+     * @throws \Reloaded\Uri\InvalidSchemeException
+     */
     public function testToStringWithQuery()
     {
         $this->stub
@@ -89,5 +96,22 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ->appendQuery("css", "2/3");
 
         $this->assertEquals("http://harrisj.net/programming?php=5.5&css=2/3", (string) $this->stub);
+    }
+
+    /**
+     * Tests toString builds URI with fragment.
+     *
+     * @throws \Reloaded\Uri\AuthorityParseException
+     * @throws \Reloaded\Uri\InvalidFragmentException
+     * @throws \Reloaded\Uri\InvalidSchemeException
+     */
+    public function testToStringWithFragment()
+    {
+        $this->stub
+            ->setScheme("http")
+            ->setAuthority("harrisj.net")
+            ->setFragment("course/php&completion=68/100");
+
+        $this->assertEquals("http://harrisj.net#course/php%26completion%3D68/100", (string) $this->stub);
     }
 }
