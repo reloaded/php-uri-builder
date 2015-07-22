@@ -219,9 +219,9 @@ namespace Reloaded\Uri
          */
         public function setPort($port)
         {
-            if($port && !$this->isPortValid($port))
+            if($port !== null && !$this->isPortValid($port))
             {
-                throw new InvalidPortException("URI port must be a valid port between 1 and 65535.");
+                throw new InvalidPortException("URI port must be a valid integer between 1 and 65535.");
             }
 
             $this->port = $port ?: (int) $port;
