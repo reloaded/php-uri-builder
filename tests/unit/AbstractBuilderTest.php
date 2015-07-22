@@ -69,6 +69,19 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
     public function testAuthority()
     {
         /*
+         * Test invalid authority parameter
+         */
+        try
+        {
+            $this->stub->setAuthority(false);
+            $this->fail("Expected an exception.");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\AuthorityParseException', $e);
+        }
+
+        /*
          * Test user information
          */
         $this->stub->setAuthority("reloaded@harrisj.net");
