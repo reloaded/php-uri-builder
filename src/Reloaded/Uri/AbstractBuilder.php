@@ -305,13 +305,12 @@ namespace Reloaded\Uri
          *
          * @param string $userInfo
          * @return bool
-         * @throws InvalidUserInfoException
          */
         protected function isUserInfoValid($userInfo)
         {
             if(!is_string($userInfo))
             {
-                throw new InvalidUserInfoException("URI user information must be a string.");
+                return false;
             }
 
             return preg_match("/^{$this->getUserInfoRegex()}$/", $userInfo) > 0;
