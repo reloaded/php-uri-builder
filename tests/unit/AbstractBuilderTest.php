@@ -342,6 +342,25 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         $this->stub->appendPath("angular-js");
 
         $this->assertEquals(["web%25development", "php", "angular-js"], $this->stub->getPath());
+
+        try
+        {
+            $this->stub->appendPath("");
+            $this->fail("Expected an exception.");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidPathException', $e);
+        }
+        try
+        {
+            $this->stub->appendPath(false);
+            $this->fail("Expected an exception.");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidPathException', $e);
+        }
     }
 
     /**
