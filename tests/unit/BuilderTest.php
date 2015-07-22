@@ -31,4 +31,19 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
         (string) $this->stub;
     }
+
+    /**
+     * Tests toString builds URI with user information.
+     *
+     * @throws \Reloaded\Uri\AuthorityParseException
+     * @throws \Reloaded\Uri\InvalidSchemeException
+     */
+    public function testToStringWithUserInfo()
+    {
+        $this->stub
+            ->setScheme("http")
+            ->setAuthority("reloaded@harrisj.net");
+
+        $this->assertEquals("http://reloaded@harrisj.net", (string) $this->stub);
+    }
 }
