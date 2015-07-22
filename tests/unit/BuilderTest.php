@@ -16,9 +16,19 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     {
     }
 
-    public function testToString()
+    /**
+     * Tests toString throws an exception if scheme is empty.
+     *
+     * @throws \Reloaded\Uri\AuthorityParseException
+     * @throws \Reloaded\Uri\InvalidSchemeException
+     * @expectedException \Reloaded\Uri\InvalidSchemeException
+     */
+    public function testToStringWithEmptyScheme()
     {
+        $this->stub
+            ->setScheme("")
+            ->setHost("harrisj.net");
 
+        (string) $this->stub;
     }
-
 }
