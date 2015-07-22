@@ -468,7 +468,7 @@ namespace Reloaded\Uri
                 throw new InvalidPathException("URI path component must be a string.");
             }
 
-            if(!trim($path) === "")
+            if(trim($path) === "")
             {
                 throw new InvalidPathException("URI path component must not be empty.");
             }
