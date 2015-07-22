@@ -265,6 +265,16 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         $this->stub->setUserInfo("reloaded");
 
         $this->assertEquals("reloaded", $this->stub->getUserInfo());
+
+        try
+        {
+            $this->stub->setUserInfo(false);
+            $this->fail("Expected an exception.");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidUserInfoException', $e);
+        }
     }
 
     /**
