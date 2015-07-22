@@ -326,11 +326,6 @@ namespace Reloaded\Uri
          */
         protected function isPortValid($port)
         {
-            if($port !== null && !is_int($port))
-            {
-                throw new InvalidPortException("URI port must be an integer or null.");
-            }
-
             return (int) $port >= 1 && (int) $port <= 65535;
         }
 
