@@ -29,7 +29,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ->setScheme("")
             ->setHost("harrisj.net");
 
-        (string) $this->stub;
+        $this->stub->__toString();
     }
 
     /**
