@@ -61,4 +61,21 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals("https://harrisj.net:443", (string) $this->stub);
     }
+
+    /**
+     * Tests toString builds URI with path if a path was specified.
+     *
+     * @throws \Reloaded\Uri\InvalidHostException
+     * @throws \Reloaded\Uri\InvalidSchemeException
+     */
+    public function testToStringWithPath()
+    {
+        $this->stub
+            ->setScheme("http")
+            ->setHost("harrisj.net")
+            ->appendPath("programming")
+            ->appendPath("c#.net");
+
+        $this->assertEquals("http://harrisj.net/programming/c%23.net", (string) $this->stub);
+    }
 }
