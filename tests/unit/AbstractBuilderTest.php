@@ -170,10 +170,21 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         try
         {
             $this->stub->setHost("2015harrisj.net");
+            $this->fail("Expected an exception.");
         }
         catch(\Exception $e)
         {
             $this->assertInstanceOf('\Reloaded\Uri\InvalidHostException', $e);
+        }
+
+        try
+        {
+            $this->stub->setHost(false);
+            $this->fail("Expected an exception.");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('Reloaded\Uri\InvalidHostException', $e);
         }
     }
 
