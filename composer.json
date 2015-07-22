@@ -9,12 +9,15 @@
     }
   ],
   "type": "library",
-  "homepage": "http://harrisj.net",
+  "homepage": "https://github.com/reloaded/php-uri-builder",
   "keywords": [
-    "php",
+    "uniform resource identifier",
+    "builder",
     "uri",
-    "manipulation",
-    "builder"
+    "uri builder",
+    "url",
+    "url builder",
+    "rfc 3986"
   ],
   "autoload": {
     "psr-4": {
