@@ -463,6 +463,16 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
             ["key1" => "val1", "key2" => "val/val2"],
             $this->stub->getQuery()
         );
+
+        try
+        {
+            $this->stub->appendQuery(null, "test");
+            $this->fail("Expected an exception.");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidQueryException', $e);
+        }
     }
 
     /**
