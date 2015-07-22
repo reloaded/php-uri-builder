@@ -10,6 +10,10 @@ namespace Reloaded\Uri;
 
 class Builder extends AbstractBuilder
 {
+    /**
+     * @return string
+     * @throws InvalidSchemeException
+     */
     function __toString()
     {
         $uri = "";
@@ -18,23 +22,45 @@ class Builder extends AbstractBuilder
         {
             throw new InvalidSchemeException("URI scheme is required.");
         }
-        $uri .= $this->getScheme() . "://";
+        $uri .= $this->getScheme() . ":";
 
-        if($this->getUserInfo() !== "")
+        if($this->getHost())
         {
-            $uri .= $this->getUserInfo() . "@";
-        }
+            $uri .= "//";
 
-        $uri .= $this->getHost();
+            if($this->getUserInfo())
+            {
+                $uri .= $this->getUserInfo() . "@";
+            }
+
+            $uri .= $this->getHost();
+
+            if($this->getPort())
+            {
+                $uri .= ":" . $this->getPort();
+            }
+        }
 
         if($this->hasPath())
         {
+            if($this->getAuthority())
+            {
+                $uri .= "/";
+            }
+
             $uri .= join("/", $this->getPath());
         }
 
         if($this->hasQuery())
         {
-            $uri .= "?" . http_build_query($this->getQuery());
+            $q = [];
+
+            foreach($this->getQuery() as $k => $v)
+            {
+                $q[] = "{$k}={$v}";
+            }
+
+            $uri .= "?" . join("&", $q);
         }
 
         if($this->hasFragment())
