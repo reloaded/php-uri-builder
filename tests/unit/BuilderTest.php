@@ -78,4 +78,16 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals("http://harrisj.net/programming/c%23.net", (string) $this->stub);
     }
+
+    public function testToStringWithQuery()
+    {
+        $this->stub
+            ->setScheme("http")
+            ->setAuthority("harrisj.net")
+            ->appendPath("programming")
+            ->appendQuery("php", "5.5")
+            ->appendQuery("css", "2/3");
+
+        $this->assertEquals("http://harrisj.net/programming?php=5.5&css=2/3", (string) $this->stub);
+    }
 }
