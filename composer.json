@@ -1,6 +1,6 @@
 {
-  "name": "reloaded/php-uri-builder",
-  "description": "A URI manipulation library inspired by Android's Uri.Builder.",
+  "name": "reloaded/uri-builder",
+  "description": "A URI builder library inspired by Android's Uri.Builder.",
   "minimum-stability": "stable",
   "authors": [
     {
