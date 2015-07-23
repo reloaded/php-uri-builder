@@ -521,6 +521,16 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
         $this->stub->setFragment("label/Two Birds Nutrition");
 
         $this->assertEquals("label/Two%20Birds%20Nutrition", $this->stub->getFragment());
+
+        try
+        {
+            $this->stub->setFragment(false);
+            $this->fail("Expected an exception.");
+        }
+        catch(\Exception $e)
+        {
+            $this->assertInstanceOf('\Reloaded\Uri\InvalidFragmentException', $e);
+        }
     }
 
     public function testHasFragment()
