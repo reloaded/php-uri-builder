@@ -1,0 +1,35 @@
+{
+  "name": "reloaded/uri-builder",
+  "description": "A URI builder library inspired by Android's Uri.Builder.",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Jason Harris",
+      "email": "1337reloaded@gmail.com"
+    }
+  ],
+  "type": "library",
+  "homepage": "https://github.com/reloaded/php-uri-builder",
+  "keywords": [
+    "uniform resource identifier",
+    "builder",
+    "uri",
+    "uri builder",
+    "url",
+    "url builder",
+    "rfc 3986"
+  ],
+  "autoload": {
+    "psr-4": {
+      "Reloaded\\Uri\\": "src/Reloaded/Uri"
+    }
+  },
+  "license": "GPL-3.0",
+  "require": {
+    "php": "^5.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.7",
+    "codeception/codeception": "^2.0"
+  }
+}
