@@ -11,6 +11,8 @@ namespace Reloaded\Uri;
 class Builder extends AbstractBuilder
 {
     /**
+     * Returns a URI string of the current URI builder.
+     *
      * @return string
      * @throws InvalidSchemeException
      */
