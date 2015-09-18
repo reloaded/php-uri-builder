@@ -1,15 +1,17 @@
 <?php
 
+use Reloaded\Uri\Builder;
+
 class BuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Reloaded\Uri\Builder
+     * @var Builder
      */
     private $stub;
 
     protected function setUp()
     {
-        $this->stub = new \Reloaded\Uri\Builder();
+        $this->stub = new Builder();
     }
 
     protected function tearDown()
@@ -113,5 +115,20 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ->setFragment("course/php&completion=68/100");
 
         $this->assertEquals("http://harrisj.net#course/php%26completion%3D68/100", (string) $this->stub);
+    }
+
+    /**
+     * Tests Builder constructor accepts an URI string and parses it correctly.
+     */
+    public function testConstructor()
+    {
+        $builder = new Builder("https://harrisj.net:443/training/certification?course=php#completion=68/100");
+
+        $this->assertEquals("http", $builder->getScheme());
+        $this->assertEquals("harrisj.net", $builder->getHost());
+        $this->assertEquals(443, $builder->getPort());
+        $this->assertEquals(["training", "certification"], $builder->getPath());
+        $this->assertEquals(["course" => "php"], $builder->getQuery());
+        $this->assertEquals("completion=68/100", $builder->getFragment());
     }
 }
