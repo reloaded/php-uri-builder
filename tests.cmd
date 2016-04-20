@@ -1,0 +1,1 @@
+call vendor\bin\codecept run -c codeception.yml -f

@@ -10,7 +10,7 @@ coverage:
         - src/*
 settings:
     bootstrap: _bootstrap.php
-    colors: true
+    colors: false
     memory_limit: 1024M
 modules:
     config:
