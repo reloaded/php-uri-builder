@@ -312,7 +312,7 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
                 "c%23.net",
                 "jasmine@js",
                 "test:unit",
-                "sql%2Bserver"
+                "sql+server"
             ],
             $this->stub->getPath()
         );
@@ -520,7 +520,7 @@ class AbstractBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->stub->setFragment("label/Two Birds Nutrition");
 
-        $this->assertEquals("label/Two%20Birds%20Nutrition", $this->stub->getFragment());
+        $this->assertEquals("label/Two!Birds!Nutrition", $this->stub->getFragment());
 
         try
         {
