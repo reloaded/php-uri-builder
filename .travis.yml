@@ -9,7 +9,7 @@ php:
   - hhvm
   - nightly
 
-before_script:
+before_install:
   - travis_retry composer self-update
 
 install:
