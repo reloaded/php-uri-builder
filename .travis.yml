@@ -16,4 +16,6 @@ install:
   - travis_retry composer install
 
 script:
+  - php --version
+  - composer --version
   - tests.sh

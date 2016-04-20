@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-.\vendor\bin\codecept run -c codeception.yml -f
+php vendor/bin/codecept run -c codeception.yml -f
