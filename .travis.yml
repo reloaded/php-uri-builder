@@ -16,4 +16,4 @@ install:
   - travis_retry composer install
 
 script:
-  - ./tests.sh
+  - tests.sh
