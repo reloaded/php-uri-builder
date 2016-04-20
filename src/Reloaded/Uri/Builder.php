@@ -8,8 +8,50 @@
 
 namespace Reloaded\Uri;
 
+use LogicException;
+
 class Builder extends AbstractBuilder
 {
+    /**
+     * Constructs a new URI Builder object.
+     *
+     * @param string $uri An optional URI to parse that already has special characters encoded.
+     * @throws LogicException
+     */
+    public function __construct($uri = "")
+    {
+        $matches = [];
+
+        if(preg_match('/^(?:([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?$/', $uri, $matches) === false)
+        {
+            throw new LogicException("Invalid regular expression pattern.");
+        }
+
+        if($uri !== "")
+        {
+            $scheme = isset($matches[1]) ? $matches[1] : "";
+            $authority = isset($matches[3]) ? $matches[3] : "";
+            $path = isset($matches[4]) ? explode("/", trim($matches[4], "/")) : [];
+            $query = isset($matches[5]) ? explode("&", trim($matches[5], "?")) : [];
+            $fragment = isset($matches[8]) ? $matches[8] : "";
+
+            /** @var string[] $querykeyValuePairs */
+            $querykeyValuePairs = [];
+            foreach($query as $keyValue)
+            {
+                $a = explode("=", $keyValue);
+                $querykeyValuePairs[$a[0]] = $a[1];
+            }
+
+            $this
+                ->setScheme($scheme)
+                ->setAuthority($authority)
+                ->setPath($path)
+                ->setQuery($querykeyValuePairs)
+                ->setFragment($fragment);
+        }
+    }
+
     /**
      * Returns a URI string of the current URI builder.
      *

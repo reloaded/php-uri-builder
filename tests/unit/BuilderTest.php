@@ -114,7 +114,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ->setAuthority("harrisj.net")
             ->setFragment("course/php&completion=68/100");
 
-        $this->assertEquals("http://harrisj.net#course/php%26completion%3D68/100", (string) $this->stub);
+        $this->assertEquals("http://harrisj.net#course/php&completion=68/100", (string) $this->stub);
     }
 
     /**
@@ -124,7 +124,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     {
         $builder = new Builder("https://harrisj.net:443/training/certification?course=php#completion=68/100");
 
-        $this->assertEquals("http", $builder->getScheme());
+        $this->assertEquals("https", $builder->getScheme());
         $this->assertEquals("harrisj.net", $builder->getHost());
         $this->assertEquals(443, $builder->getPort());
         $this->assertEquals(["training", "certification"], $builder->getPath());
