@@ -13,8 +13,7 @@ before_install:
   - travis_retry composer self-update
 
 install:
-  - travis_retry composer install
+  - travis_retry composer install -vv
 
 script:
-  - vendor/bin/codecept build -c codeception.yml
-  - vendor/bin/codecept run -c codeception.yml -f
+  - tests.sh
