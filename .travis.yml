@@ -16,4 +16,5 @@ install:
   - travis_retry composer install
 
 script:
+  - vendor/bin/codecept build -c codeception.yml
   - vendor/bin/codecept run -c codeception.yml -f
